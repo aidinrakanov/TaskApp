@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.Menu;
 
 import com.example.taskapp.models.Task;
+import com.example.taskapp.ui.OnItemClickListener;
+import com.example.taskapp.ui.home.TaskAdapter;
+import com.example.taskapp.ui.onBoard.OnBoardActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -19,15 +22,30 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity{
+
+         RecyclerView recyclerView;
+         TaskAdapter adapter;
+         OnItemClickListener listener;
 
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(true){
+            startActivity(new Intent(this, OnBoardActivity.class));
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_main);
+        recyclerView =findViewById(R.id.recyclerView);
+        adapter = new TaskAdapter((ArrayList<Task>) listener);
+        recyclerView.setAdapter(adapter);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -48,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
