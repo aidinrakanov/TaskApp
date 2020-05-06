@@ -28,10 +28,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-         RecyclerView recyclerView;
-         TaskAdapter adapter;
-         OnItemClickListener listener;
-
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -43,9 +39,6 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
         setContentView(R.layout.activity_main);
-        recyclerView =findViewById(R.id.recyclerView);
-        adapter = new TaskAdapter((ArrayList<Task>) listener);
-        recyclerView.setAdapter(adapter);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);

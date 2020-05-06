@@ -1,5 +1,6 @@
 package com.example.taskapp.ui.onBoard;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,14 +10,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BoardFragment extends Fragment {
+
+    TextView textTitle, textDesc;
+    Button button;
+
 
     public BoardFragment() {
         // Required empty public constructor
@@ -33,17 +42,36 @@ public class BoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView textTitle = view.findViewById(R.id.textTitle);
+        final OnBoardActivity onBoardActivity = (OnBoardActivity) getActivity();
+        textTitle = view.findViewById(R.id.textTitle);
+        textDesc = view.findViewById(R.id.textDesc);
+        button = view.findViewById(R.id.button_Getstart);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(onBoardActivity,MainActivity.class);
+                startActivity(intent);
+                onBoardActivity.finish();
+            }
+        });
+        ImageView image = view.findViewById(R.id.imageView);
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
-                textTitle.setText("Привет");
+                image.setImageResource(R.drawable.kitkat01);
+                textTitle.setText("Kitkat");
+                textDesc.setText("android 4.4");
                 break;
             case 1:
-                textTitle.setText("Как дела?");
+                image.setImageResource(R.drawable.nougat);
+                textTitle.setText("Oreo");
+                textDesc.setText("android 7");
                 break;
             case 2:
-                textTitle.setText("Че делаешь?");
+                image.setImageResource(R.drawable.oreo2);
+                textTitle.setText("Nougat");
+                textDesc.setText("android 8.0");
+                button.setVisibility(View.VISIBLE);
                 break;
         }
     }

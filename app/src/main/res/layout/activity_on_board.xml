@@ -9,6 +9,28 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_skip"
+        />
+    <TextView
+        android:id="@+id/skip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="skip"
+        android:textSize="30sp"
+        android:layout_alignBottom="@+id/fab_skip"
+        android:layout_alignTop="@+id/fab_skip"
+        android:layout_toLeftOf="@+id/fab_skip"/>
 
 </RelativeLayout>

@@ -30,7 +30,7 @@ public class FormActivity extends AppCompatActivity {
         editTitle = findViewById(R.id.editTitle);
         editDesc = findViewById(R.id.editDesc);
     }
-    public void onClick(View view) {
+    public void save (View view) {
         String title = editTitle.getText().toString().trim();
         String desc = editDesc.getText().toString().trim();
         Task task = new Task(title, desc);

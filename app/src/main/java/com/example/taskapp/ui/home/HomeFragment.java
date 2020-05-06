@@ -33,7 +33,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        list.add(new Task("Aidin" , "Rakanov"));
         adapter = new TaskAdapter(list);
         recyclerView.setAdapter(adapter);
     }

@@ -12,18 +12,23 @@
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Task"/>
+        android:hint="Task"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/editDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"/>
+        android:hint="Description"
+        android:layout_marginTop="10dp"/>
 
     <Button
-        android:onClick="onClick"
+        android:onClick="save"
+        android:textSize="20sp"
+        android:background="#03A9F4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="save"/>
 
 </LinearLayout>
