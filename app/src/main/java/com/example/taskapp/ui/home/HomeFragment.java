@@ -1,6 +1,8 @@
 package com.example.taskapp.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +21,13 @@ import com.example.taskapp.models.Task;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class HomeFragment extends Fragment {
 
-    private TaskAdapter adapter;
+    private Adapter adapter;
     private ArrayList<Task> list = new ArrayList<>();
+    private Task task = new Task();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        return inflater.inflate(R.layout.fragment_home, container, false);
@@ -33,7 +38,17 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TaskAdapter(list);
+        adapter = new Adapter();
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK){
+            task = (Task) data.getSerializableExtra("task");
+            list.add(task);
+            adapter.update(list);
+
+        }
     }
 }

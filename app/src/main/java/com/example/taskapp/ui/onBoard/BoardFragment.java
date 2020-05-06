@@ -18,9 +18,6 @@ import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BoardFragment extends Fragment {
 
     TextView textTitle, textDesc;
@@ -30,7 +27,6 @@ public class BoardFragment extends Fragment {
     public BoardFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,17 +57,18 @@ public class BoardFragment extends Fragment {
                 image.setImageResource(R.drawable.kitkat01);
                 textTitle.setText("Kitkat");
                 textDesc.setText("android 4.4");
+                button.setVisibility(view.GONE);
                 break;
             case 1:
                 image.setImageResource(R.drawable.nougat);
                 textTitle.setText("Oreo");
                 textDesc.setText("android 7");
+                button.setVisibility(view.GONE);
                 break;
             case 2:
                 image.setImageResource(R.drawable.oreo2);
                 textTitle.setText("Nougat");
                 textDesc.setText("android 8.0");
-                button.setVisibility(View.VISIBLE);
                 break;
         }
     }

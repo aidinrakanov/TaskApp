@@ -33,7 +33,9 @@ public class FormActivity extends AppCompatActivity {
     public void save (View view) {
         String title = editTitle.getText().toString().trim();
         String desc = editDesc.getText().toString().trim();
-        Task task = new Task(title, desc);
+        Task task = new Task();
+        task.setDesc(desc);
+        task.setTitle(title);
         Intent intent = new Intent();
         intent.putExtra("task", task);
         setResult(RESULT_OK, intent);

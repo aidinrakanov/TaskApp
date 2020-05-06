@@ -10,14 +10,17 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 public class OnBoardActivity extends AppCompatActivity {
     ViewPager viewPager;
-    FloatingActionButton fab_skip;
+
+    Button skip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +28,16 @@ public class OnBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_on_board);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
-        fab_skip = findViewById(R.id.fab_skip);
-        fab_skip.setOnClickListener(new View.OnClickListener() {
+        skip = findViewById(R.id.skip_btn);
+        skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_fab = new Intent (OnBoardActivity.this, MainActivity.class);
-                startActivity(intent_fab);
+                startActivity(new Intent(OnBoardActivity.this, MainActivity.class));
                 finish();
             }
         });
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager,true);
     }
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -55,7 +57,7 @@ public class OnBoardActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return 3;
         }
     }
 
