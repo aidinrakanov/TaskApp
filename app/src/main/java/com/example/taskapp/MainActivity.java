@@ -1,6 +1,8 @@
 package com.example.taskapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,7 @@ import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.OnItemClickListener;
 import com.example.taskapp.ui.home.Adapter;
 import com.example.taskapp.ui.onBoard.OnBoardActivity;
+import com.example.taskapp.ui.profile.ProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -34,11 +37,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (true) {
-            startActivity(new Intent(this, OnBoardActivity.class));
+        if (! isShown()) {
+            startActivity(new  Intent(this, OnBoardActivity.class));
             finish();
             return;
         }
+
+        if (isExit()) {
+            startActivity(new  Intent(this, OnBoardActivity.class));
+            finish();
+            return;
+        }
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+    private boolean isShown(){
+        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        return preferences.getBoolean("isShown", false);
+    }
+    private boolean isExit(){
+        SharedPreferences prefer = getSharedPreferences("setting", Context.MODE_PRIVATE);
+        return prefer.getBoolean("Exit", true);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,8 +103,17 @@ public class MainActivity extends AppCompatActivity {
         fragment.getChildFragmentManager().getFragments().get(0).onActivityResult(requestCode,resultCode,data);
         }
 
-
     public void exit_click(MenuItem item) {
+        exit_sp();
         this.finish();
+    }
+    private void exit_sp(){
+        SharedPreferences pref = getSharedPreferences("setting", Context.MODE_PRIVATE);
+        pref.edit().putBoolean("Exit",true).apply();
+    }
+
+    public void header_click(View view) {
+        Intent int_profile = new Intent(this, ProfileActivity.class);
+        startActivity(int_profile);
     }
 }

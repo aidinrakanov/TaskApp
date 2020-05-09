@@ -32,6 +32,7 @@ public class OnBoardActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 startActivity(new Intent(OnBoardActivity.this, MainActivity.class));
                 finish();
             }

@@ -1,6 +1,9 @@
 package com.example.taskapp.ui.onBoard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,7 @@ public class BoardFragment extends Fragment {
     Button button;
 
 
+
     public BoardFragment() {
         // Required empty public constructor
     }
@@ -45,31 +49,44 @@ public class BoardFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(onBoardActivity,MainActivity.class);
+                saveIsShown();
+                Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
-                onBoardActivity.finish();
+                getActivity().finish();
+
             }
         });
         ImageView image = view.findViewById(R.id.imageView);
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
+                onBoardActivity.viewPager.setBackgroundColor(Color.BLUE);
                 image.setImageResource(R.drawable.kitkat01);
                 textTitle.setText("Kitkat");
                 textDesc.setText("android 4.4");
                 button.setVisibility(view.GONE);
+
                 break;
             case 1:
+                onBoardActivity.viewPager.setBackgroundColor(Color.GREEN);
                 image.setImageResource(R.drawable.nougat);
-                textTitle.setText("Oreo");
+                textTitle.setText("Nougat");
                 textDesc.setText("android 7");
                 button.setVisibility(view.GONE);
+
                 break;
             case 2:
+                onBoardActivity.viewPager.setBackgroundColor(Color.LTGRAY);
                 image.setImageResource(R.drawable.oreo2);
-                textTitle.setText("Nougat");
+                textTitle.setText("Oreo");
                 textDesc.setText("android 8.0");
+
                 break;
         }
+
+    }
+    private void saveIsShown(){
+        SharedPreferences preferences = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        preferences.edit().putBoolean("isShown",true).apply();
     }
 }
