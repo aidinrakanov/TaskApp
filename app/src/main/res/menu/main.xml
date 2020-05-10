@@ -8,7 +8,6 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_exit"
-        android:onClick="exit_click"
         android:orderInCategory="100"
         android:title="Exit"
         app:showAsAction="never" />

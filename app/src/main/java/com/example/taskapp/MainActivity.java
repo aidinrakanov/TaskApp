@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -56,8 +57,14 @@ public class MainActivity extends AppCompatActivity {
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        View header = navigationView.getHeaderView(0);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent int_profile = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(int_profile);
+            }
+        });
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
@@ -74,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -93,17 +99,20 @@ public class MainActivity extends AppCompatActivity {
         fragment.getChildFragmentManager().getFragments().get(0).onActivityResult(requestCode,resultCode,data);
         }
 
-    public void exit_click(MenuItem item) {
-        exit_sp();
-        this.finish();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_exit:
+                exit_sp();
+                finish();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
+
     private void exit_sp(){
         SharedPreferences pref = getSharedPreferences("settings", Context.MODE_PRIVATE);
         pref.edit().putBoolean("isShown",false).apply();
-    }
-
-    public void header_click(View view) {
-        Intent int_profile = new Intent(this, ProfileActivity.class);
-        startActivity(int_profile);
     }
 }

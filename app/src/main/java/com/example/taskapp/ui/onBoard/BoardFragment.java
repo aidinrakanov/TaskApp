@@ -59,7 +59,7 @@ public class BoardFragment extends Fragment {
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
-                view.setBackgroundColor(Color.BLUE);
+                view.setBackgroundColor(Color.YELLOW);
                 image.setImageResource(R.drawable.kitkat01);
                 textTitle.setText("Kitkat");
                 textDesc.setText("android 4.4");
