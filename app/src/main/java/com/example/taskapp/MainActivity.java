@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void exit_click(MenuItem item) {
         exit_sp();
-        this.finish();
+        finish();
     }
     private void exit_sp(){
         SharedPreferences pref = getSharedPreferences("settings", Context.MODE_PRIVATE);

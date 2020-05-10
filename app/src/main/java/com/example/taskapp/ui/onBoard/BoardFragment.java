@@ -52,10 +52,7 @@ public class BoardFragment extends Fragment {
                 saveIsShown();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
-
                 getActivity().finish();
-
-
             }
         });
         ImageView image = view.findViewById(R.id.imageView);
@@ -88,6 +85,6 @@ public class BoardFragment extends Fragment {
     }
     private void saveIsShown(){
         SharedPreferences preferences = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        preferences.edit().putBoolean("isShown",false).apply();
+        preferences.edit().putBoolean("isShown", true).apply();
     }
 }
