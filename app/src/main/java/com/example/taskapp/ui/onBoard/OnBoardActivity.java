@@ -32,9 +32,8 @@ public class OnBoardActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                startActivity(new Intent(OnBoardActivity.this, MainActivity.class));
-                finish();
+
+                viewPager.setCurrentItem(2);
             }
         });
         TabLayout tabLayout = findViewById(R.id.tabs);

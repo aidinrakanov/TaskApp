@@ -43,12 +43,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (isExit()) {
-            startActivity(new  Intent(this, OnBoardActivity.class));
-            finish();
-            return;
-        }
-
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -75,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isShown(){
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         return preferences.getBoolean("isShown", false);
-    }
-    private boolean isExit(){
-        SharedPreferences prefer = getSharedPreferences("setting", Context.MODE_PRIVATE);
-        return prefer.getBoolean("Exit", true);
     }
 
 
@@ -108,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
     private void exit_sp(){
-        SharedPreferences pref = getSharedPreferences("setting", Context.MODE_PRIVATE);
-        pref.edit().putBoolean("Exit",true).apply();
+        SharedPreferences pref = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        pref.edit().putBoolean("isShown",false).apply();
     }
 
     public void header_click(View view) {

@@ -52,7 +52,9 @@ public class BoardFragment extends Fragment {
                 saveIsShown();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
+
                 getActivity().finish();
+
 
             }
         });
@@ -60,15 +62,14 @@ public class BoardFragment extends Fragment {
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
-                onBoardActivity.viewPager.setBackgroundColor(Color.BLUE);
+                view.setBackgroundColor(Color.BLUE);
                 image.setImageResource(R.drawable.kitkat01);
                 textTitle.setText("Kitkat");
                 textDesc.setText("android 4.4");
                 button.setVisibility(view.GONE);
-
                 break;
             case 1:
-                onBoardActivity.viewPager.setBackgroundColor(Color.GREEN);
+                view.setBackgroundColor(Color.LTGRAY);
                 image.setImageResource(R.drawable.nougat);
                 textTitle.setText("Nougat");
                 textDesc.setText("android 7");
@@ -76,7 +77,7 @@ public class BoardFragment extends Fragment {
 
                 break;
             case 2:
-                onBoardActivity.viewPager.setBackgroundColor(Color.LTGRAY);
+                view.setBackgroundColor(Color.GREEN);
                 image.setImageResource(R.drawable.oreo2);
                 textTitle.setText("Oreo");
                 textDesc.setText("android 8.0");
@@ -87,6 +88,6 @@ public class BoardFragment extends Fragment {
     }
     private void saveIsShown(){
         SharedPreferences preferences = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        preferences.edit().putBoolean("isShown",true).apply();
+        preferences.edit().putBoolean("isShown",false).apply();
     }
 }

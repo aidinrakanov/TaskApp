@@ -18,27 +18,20 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskapp.R;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment {
-
-    private GalleryViewModel galleryViewModel;
+    ArrayList<String> files;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 
@@ -46,6 +39,10 @@ public class GalleryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getPermissions();
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView_gallery);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        GalleryAdapter adapter = new GalleryAdapter(files);
+        recyclerView.setAdapter(adapter);
     }
 
     public void getPermissions(){
@@ -54,8 +51,7 @@ public class GalleryFragment extends Fragment {
         == PackageManager.PERMISSION_GRANTED){
             getFiles();
         }else{
-            requestPermissions (new String[]
-                    {Manifest.permission.WRITE_EXTERNAL_STORAGE},101);
+            requestPermissions (new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},101);
         }
     }
 
@@ -67,12 +63,11 @@ public class GalleryFragment extends Fragment {
         }
     }
 
-
     private void getFiles(){
         File folder  = new File(Environment.getExternalStorageDirectory(),"DCIM/Camera");
-        //if(!folder.exists()) folder.mkdir();
-        for (File file : folder.listFiles()){
-
+        files = new ArrayList<>();
+        for(File file:folder.listFiles()){
+            files.add(file.getName());
         }
 
     }
