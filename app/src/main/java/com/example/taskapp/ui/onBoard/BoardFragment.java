@@ -77,7 +77,7 @@ public class BoardFragment extends Fragment {
 
                 break;
             case 2:
-                view.setBackgroundColor(Color.GREEN);
+                view.setBackgroundColor(Color.GRAY);
                 image.setImageResource(R.drawable.oreo2);
                 textTitle.setText("Oreo");
                 textDesc.setText("android 8.0");
