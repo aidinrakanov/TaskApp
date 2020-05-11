@@ -30,15 +30,17 @@ public class FormActivity extends AppCompatActivity {
         editTitle = findViewById(R.id.editTitle);
         editDesc = findViewById(R.id.editDesc);
     }
+
     public void save (View view) {
         String title = editTitle.getText().toString().trim();
         String desc = editDesc.getText().toString().trim();
         Task task = new Task();
         task.setDesc(desc);
         task.setTitle(title);
-        Intent intent = new Intent();
-        intent.putExtra("task", task);
-        setResult(RESULT_OK, intent);
+        App.getInstance().getDatabase().taskDao().insert(task);
+//        Intent intent = new Intent();
+//        intent.putExtra("task", task);
+//        setResult(RESULT_OK, intent);
         finish();
     }
 

@@ -15,9 +15,8 @@ import java.util.ArrayList;
 public class GalleryAdapter extends RecyclerView.Adapter <GalleryAdapter.ViewHolder> {
     private ArrayList<String> files;
 
-    public GalleryAdapter (ArrayList<String> files) {
-        this.files = files;
-    }
+    public GalleryAdapter (ArrayList<String> files)
+    { this.files = files; }
 
     @NonNull
     @Override

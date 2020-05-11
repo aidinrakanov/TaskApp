@@ -16,10 +16,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.taskapp.App;
 import com.example.taskapp.R;
 import com.example.taskapp.models.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -38,17 +40,32 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new Adapter();
+        list.addAll (App.getInstance().getDatabase().taskDao().getAll());
+        adapter = new Adapter(list);
         recyclerView.setAdapter(adapter);
+        loadData();
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK){
-            task = (Task) data.getSerializableExtra("task");
-            list.add(task);
-            adapter.update(list);
 
-        }
+    public void loadData(){
+        App.getInstance().getDatabase().taskDao()
+                .getAllLive().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> tasks) {
+                list.clear();
+                list.addAll(tasks);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 100 && resultCode == RESULT_OK){
+//            task = (Task) data.getSerializableExtra("task");
+//            list.add(task);
+//            adapter.update(list);
+//
+//        }
+//    }
 }

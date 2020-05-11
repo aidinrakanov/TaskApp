@@ -42,7 +42,6 @@ public class BoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final OnBoardActivity onBoardActivity = (OnBoardActivity) getActivity();
         textTitle = view.findViewById(R.id.textTitle);
         textDesc = view.findViewById(R.id.textDesc);
         button = view.findViewById(R.id.button_Getstart);
