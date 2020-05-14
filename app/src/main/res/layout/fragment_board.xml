@@ -19,7 +19,7 @@
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/textTitle"
+        android:id="@+id/main_text"
         android:textSize="40sp"
         android:textColor="#EC0606"
         android:textStyle="bold"
@@ -30,7 +30,7 @@
         android:text="aidin" />
 
     <TextView
-        android:id="@+id/textDesc"
+        android:id="@+id/second_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="aidin"

@@ -10,7 +10,7 @@ import android.view.Menu;
 
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.OnItemClickListener;
-import com.example.taskapp.ui.home.Adapter;
+import com.example.taskapp.ui.home.TaskAdapter;
 import com.example.taskapp.ui.onBoard.OnBoardActivity;
 import com.example.taskapp.ui.profile.ProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(MainActivity.this, FormActivity.class), 100);
+                startActivity(new Intent(MainActivity.this, FormActivity.class));
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -115,4 +115,5 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("settings", Context.MODE_PRIVATE);
         pref.edit().putBoolean("isShown",false).apply();
     }
+
 }

@@ -3,13 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="16dp"
+    android:id="@+id/holder"
     android:layout_height="wrap_content">
     
     <TextView
-        android:id="@+id/textTitle"
+        android:id="@+id/text_title"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#026506"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/text_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

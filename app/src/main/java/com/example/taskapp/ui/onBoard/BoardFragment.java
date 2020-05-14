@@ -23,9 +23,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BoardFragment extends Fragment {
 
-    TextView textTitle, textDesc;
+    TextView main, second;
     Button button;
-
 
 
     public BoardFragment() {
@@ -42,8 +41,8 @@ public class BoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        textTitle = view.findViewById(R.id.textTitle);
-        textDesc = view.findViewById(R.id.textDesc);
+        main = view.findViewById(R.id.main_text);
+        second = view.findViewById(R.id.second_text);
         button = view.findViewById(R.id.button_Getstart);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,23 +59,23 @@ public class BoardFragment extends Fragment {
             case 0:
                 view.setBackgroundColor(Color.YELLOW);
                 image.setImageResource(R.drawable.kitkat01);
-                textTitle.setText("Kitkat");
-                textDesc.setText("android 4.4");
+                main.setText("Kitkat");
+                second.setText("android 4.4");
                 button.setVisibility(view.GONE);
                 break;
             case 1:
                 view.setBackgroundColor(Color.LTGRAY);
                 image.setImageResource(R.drawable.nougat);
-                textTitle.setText("Nougat");
-                textDesc.setText("android 7");
+                main.setText("Nougat");
+                second.setText("android 7");
                 button.setVisibility(view.GONE);
 
                 break;
             case 2:
                 view.setBackgroundColor(Color.GRAY);
                 image.setImageResource(R.drawable.oreo2);
-                textTitle.setText("Oreo");
-                textDesc.setText("android 8.0");
+                main.setText("Oreo");
+                second.setText("android 8.0");
 
                 break;
         }
