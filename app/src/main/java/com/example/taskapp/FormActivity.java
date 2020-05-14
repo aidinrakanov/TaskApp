@@ -36,15 +36,15 @@ public class FormActivity extends AppCompatActivity {
             task = (Task) intent.getSerializableExtra("task");
             editTitle.setText(task.getTitle());
             editDesc.setText(task.getDesc());
+            pos = intent.getIntExtra("pos",1);
             App.getInstance().getDatabase().taskDao()
              .update(pos, editTitle.getText().toString(), editDesc.getText().toString());
-            pos = intent.getIntExtra("pos",1);
+
         }
     }
 
     public void save(View view) {
-        if ((editTitle != null)
-                && (editDesc != null)) {
+        if ((editTitle != null && editDesc != null)) {
             String title = editTitle.getText().toString().trim();
             String desc = editDesc.getText().toString().trim();
             if (task != null){
