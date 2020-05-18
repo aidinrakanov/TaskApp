@@ -11,4 +11,12 @@
         android:orderInCategory="100"
         android:title="Exit"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort"
+        android:orderInCategory="100"
+        android:title="Sort"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_sort"
+        />
 </menu>

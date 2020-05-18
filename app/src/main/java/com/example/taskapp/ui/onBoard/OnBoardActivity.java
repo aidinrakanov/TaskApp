@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,7 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class OnBoardActivity extends AppCompatActivity {
     ViewPager viewPager;
-
+    LottieAnimationView lottie;
     Button skip;
 
     @Override
@@ -27,6 +28,7 @@ public class OnBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
         viewPager = findViewById(R.id.viewPager);
+        lottie = findViewById(R.id.lottie_json);
         viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
         skip = findViewById(R.id.skip_btn);
         skip.setOnClickListener(new View.OnClickListener() {

@@ -35,9 +35,8 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment {
-    TextView title;
+
     private int pos;
-    Task task;
     private TaskAdapter adapter;
     private ArrayList<Task> list = new ArrayList<>();
 
@@ -54,7 +53,31 @@ public class HomeFragment extends Fragment {
         list.addAll(App.getInstance().getDatabase().taskDao().getAll());
         adapter = new TaskAdapter(list);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+            Intent intent = new Intent(getContext(),FormActivity.class);
+            intent.putExtra("task", list.get(pos));
+            startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(int pos) {
+            showAlert(list.get(pos));
+            }
+        });
         loadData();
+    }
+
+    private void showAlert(final Task task) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage("Удалить?").setNegativeButton("Отмена",null)
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        App.getInstance().getDatabase().taskDao().delete(task);
+                    }
+                });              builder.show();
     }
 
     public void loadData() {
@@ -69,6 +92,17 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    public void sortList() {
+        list.clear();
+        list.addAll(App.getInstance().getDatabase().taskDao().getAllsorted());
+        adapter.notifyDataSetChanged();
+    }
+
+    public void initList() {
+        list.clear();
+        list.addAll(App.getInstance().getDatabase().taskDao().getAll());
+        adapter.notifyDataSetChanged();
+    }
 }
 
 

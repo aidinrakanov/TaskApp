@@ -4,8 +4,10 @@ package com.example.taskapp.room;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.taskapp.models.Task;
 
@@ -25,10 +27,19 @@ public interface TaskDao {
     void update(int idList ,String newTitle, String newDesc);
 
 
-    @Query("DELETE from task WHERE id IN (:idList)")
-    void deleteByIdList(int idList);
+    @Query("SELECT * FROM task ORDER BY title ASC")
+    List<Task> getAllsorted();
+
 
     @Insert
     void insert(Task task);
+
+    @Delete
+    void delete(Task task);
+
+    @Update
+    void update(Task task);
+
+
 
 }

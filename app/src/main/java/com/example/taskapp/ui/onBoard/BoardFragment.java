@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +26,8 @@ public class BoardFragment extends Fragment {
 
     TextView main, second;
     Button button;
+    LottieAnimationView lottie;
+
 
 
     public BoardFragment() {
@@ -42,7 +45,7 @@ public class BoardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         main = view.findViewById(R.id.main_text);
-        second = view.findViewById(R.id.second_text);
+        lottie = view.findViewById(R.id.lottie_json);
         button = view.findViewById(R.id.button_Getstart);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,26 +60,25 @@ public class BoardFragment extends Fragment {
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
-                view.setBackgroundColor(Color.YELLOW);
-                image.setImageResource(R.drawable.kitkat01);
-                main.setText("Kitkat");
-                second.setText("android 4.4");
+                view.setBackgroundColor(Color.LTGRAY);
+                lottie.setAnimation(R.raw.facebook);
+                main.setText("Facebook");
+                main.setTextColor(Color.BLUE);
                 button.setVisibility(view.GONE);
                 break;
             case 1:
-                view.setBackgroundColor(Color.LTGRAY);
-                image.setImageResource(R.drawable.nougat);
-                main.setText("Nougat");
-                second.setText("android 7");
+                view.setBackgroundColor(Color.YELLOW);
+                lottie.setAnimation(R.raw.whatsapp);
+                main.setText("WhatsApp");
+                main.setTextColor(Color.GREEN);
                 button.setVisibility(view.GONE);
 
                 break;
             case 2:
-                view.setBackgroundColor(Color.GRAY);
-                image.setImageResource(R.drawable.oreo2);
-                main.setText("Oreo");
-                second.setText("android 8.0");
-
+                view.setBackgroundColor(Color.DKGRAY);
+                main.setTextColor(Color.MAGENTA);
+                lottie.setAnimation(R.raw.instagram);
+                main.setText("Instagramm");
                 break;
         }
 

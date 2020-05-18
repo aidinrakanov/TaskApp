@@ -4,19 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
+    android:padding="16dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".ui.onBoard.BoardFragment">
 
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="350dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="50dp"
-        android:src="@mipmap/ic_launcher"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_json"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:lottie_rawRes="@raw/facebook"
+        app:lottie_loop="true"
+        android:layout_marginTop="30dp"
+        app:lottie_autoPlay="true"
+
+        />
 
     <TextView
         android:id="@+id/main_text"
@@ -29,14 +33,6 @@
         android:layout_margin="25dp"
         android:text="aidin" />
 
-    <TextView
-        android:id="@+id/second_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="aidin"
-        android:textColor="#000000"
-        android:textAlignment="center"
-        android:textSize="30sp" />
 
     <Button
         android:id="@+id/button_Getstart"
@@ -45,7 +41,7 @@
         android:text="Get Started"
         android:textColor="#FFFFFF"
         android:background="#2E9FD1"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:textSize="40sp" />
 
 </LinearLayout>

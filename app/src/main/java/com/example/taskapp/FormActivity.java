@@ -2,6 +2,7 @@ package com.example.taskapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Index;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,34 +32,34 @@ public class FormActivity extends AppCompatActivity {
         editTitle = findViewById(R.id.editTitle);
         editDesc = findViewById(R.id.editDesc);
 
-        if (getIntent().getSerializableExtra("task") != null) {
-            Intent intent = getIntent();
-            task = (Task) intent.getSerializableExtra("task");
+        task = (Task) getIntent().getSerializableExtra("task");
+        if (task != null) {
             editTitle.setText(task.getTitle());
             editDesc.setText(task.getDesc());
-            pos = intent.getIntExtra("pos",1);
             App.getInstance().getDatabase().taskDao()
-             .update(pos, editTitle.getText().toString(), editDesc.getText().toString());
-
+                    .update(pos, editTitle.getText().toString(), editDesc.getText().toString());
         }
     }
 
     public void save(View view) {
-        if ((editTitle != null && editDesc != null)) {
-            String title = editTitle.getText().toString().trim();
-            String desc = editDesc.getText().toString().trim();
-            if (task != null){
-                task.setId(task.getId());
-                App.getInstance().getDatabase().taskDao().update(pos, editTitle.getText().toString(), editDesc.getText().toString());
-            } else {
-                Task task = new Task();
-                task.setDesc(desc);
-                task.setTitle(title);
-                App.getInstance().getDatabase().taskDao().insert(task);
-            }
-            finish();
+
+        String title = editTitle.getText().toString().trim();
+        String desc = editDesc.getText().toString().trim();
+        if (task != null) {
+            task.setDesc(desc);
+            task.setTitle(title);
+            App.getInstance().getDatabase().taskDao().update(task);
+        } else {
+            task = new Task();
+            task.setDesc(desc);
+            task.setTitle(title);
+            task.setId(0);
+            App.getInstance().getDatabase().taskDao().insert(task);
+
         }
+        finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         finish();

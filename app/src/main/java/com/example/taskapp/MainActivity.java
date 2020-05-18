@@ -10,6 +10,7 @@ import android.view.Menu;
 
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.OnItemClickListener;
+import com.example.taskapp.ui.home.HomeFragment;
 import com.example.taskapp.ui.home.TaskAdapter;
 import com.example.taskapp.ui.onBoard.OnBoardActivity;
 import com.example.taskapp.ui.profile.ProfileActivity;
@@ -32,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+        Task task;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 exit_sp();
                 finish();
                 break;
+            case R.id.action_sort:
+                sort();
+                break;
 
         }
         return super.onOptionsItemSelected(item);
@@ -114,6 +118,19 @@ public class MainActivity extends AppCompatActivity {
     private void exit_sp(){
         SharedPreferences pref = getSharedPreferences("settings", Context.MODE_PRIVATE);
         pref.edit().putBoolean("isShown",false).apply();
+    }
+
+    private boolean flag;
+    private void sort(){
+        if (flag) {
+            Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            ((HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0)).sortList();
+            flag = false;
+        } else {
+            Fragment navHostFragment1 = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            ((HomeFragment) navHostFragment1.getChildFragmentManager().getFragments().get(0)).initList();
+            flag = true;
+        }
     }
 
 }
