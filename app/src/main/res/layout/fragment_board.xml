@@ -19,7 +19,6 @@
         app:lottie_loop="true"
         android:layout_marginTop="30dp"
         app:lottie_autoPlay="true"
-
         />
 
     <TextView

@@ -43,9 +43,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(list.get(position));
         if (position % 2 == 0) {
-            holder.holder.setBackgroundResource(R.color.lightBlue);
+            holder.holder.setBackgroundResource(R.drawable.tasks_gradient);
         } else {
-            holder.holder.setBackgroundResource(R.color.Gray);
+            holder.holder.setBackgroundResource(R.drawable.tasks2_gradient);
         }
     }
 

@@ -22,7 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        this.finish();
+        finish();
         return true;
     }
 }

@@ -17,6 +17,12 @@
         android:orderInCategory="100"
         android:title="Sort"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_sort"
-        />
+        android:icon="@drawable/ic_sort" />
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never"/>
+
+
 </menu>

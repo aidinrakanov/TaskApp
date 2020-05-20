@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/phone_gradient"
     android:padding="16dp"
     tools:context=".FormActivity">
 
@@ -16,7 +17,7 @@
         android:layout_height="wrap_content"
         style="@style/EditTextStyle"
         android:hint="Task"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/editDesc"

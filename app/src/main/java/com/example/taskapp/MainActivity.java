@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.taskapp.login.PhoneActivity;
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.OnItemClickListener;
 import com.example.taskapp.ui.home.HomeFragment;
@@ -17,6 +18,7 @@ import com.example.taskapp.ui.profile.ProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,14 +35,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-        Task task;
+    Task task;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (! isShown()) {
-            startActivity(new  Intent(this, OnBoardActivity.class));
+        if (!isShown()) {
+            startActivity(new Intent(this, OnBoardActivity.class));
+            finish();
+            return;
+        }
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(this, PhoneActivity.class));
             finish();
             return;
         }
@@ -74,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-    private boolean isShown(){
+
+    private boolean isShown() {
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         return preferences.getBoolean("isShown", false);
     }
@@ -102,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_exit:
                 exit_sp();
                 finish();
@@ -110,14 +118,23 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_sort:
                 sort();
                 break;
-
+            case R.id.logout:
+                logout();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void exit_sp(){
+    private void exit_sp() {
         SharedPreferences pref = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        pref.edit().putBoolean("isShown",false).apply();
+        pref.edit().putBoolean("isShown", false).apply();
+    }
+
+
+    private void logout(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this, PhoneActivity.class));
+        finish();
     }
 
     private boolean flag;
