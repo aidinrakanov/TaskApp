@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,29 @@
     android:background="@drawable/phone_gradient"
     tools:context=".ui.profile.ProfileActivity">
 
-</RelativeLayout>
+    <EditText
+        android:layout_marginTop="50dp"
+        android:id="@+id/editName"
+        android:layout_width="300dp"
+        android:hint="enter your name"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/EditTextStyle"
+        />
+
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Сохранить"
+        android:onClick="save_profile"
+        android:textColor="#FFFFFF"
+        android:textStyle="italic"
+        android:background="@drawable/button_rounded_gradient"
+        android:layout_gravity="center"
+
+        />
+
+</LinearLayout>
