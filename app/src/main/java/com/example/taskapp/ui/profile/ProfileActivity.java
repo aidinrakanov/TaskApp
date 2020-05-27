@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.taskapp.R;
@@ -26,19 +28,26 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     EditText editName;
+    ImageView face;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         editName = findViewById(R.id.editName);
-       // getData();
+        face= findViewById(R.id.avatarka);
         getData2();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle("Profile");
         }
+        face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -46,20 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-//    private void getData(){
-//        String uid  = FirebaseAuth.getInstance().getUid();
-//        FirebaseFirestore.getInstance()
-//                .collection("users").document(uid)
-//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if(task.isSuccessful()){
-//                    User user = task.getResult().toObject(User.class);
-//                    editName.setText(user.getName());
-//                }
-//            }
-//        });
-//    }
     private void getData2(){
         String uid  = FirebaseAuth.getInstance().getUid();
         FirebaseFirestore.getInstance()

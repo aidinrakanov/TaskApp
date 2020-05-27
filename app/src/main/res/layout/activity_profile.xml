@@ -16,9 +16,7 @@
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        style="@style/EditTextStyle"
-        />
-
+        style="@style/EditTextStyle" />
 
     <Button
         android:layout_marginTop="10dp"
@@ -29,8 +27,15 @@
         android:textColor="#FFFFFF"
         android:textStyle="italic"
         android:background="@drawable/button_rounded_gradient"
-        android:layout_gravity="center"
+        android:layout_gravity="center" />
 
-        />
+    <ImageView
+        android:id="@+id/avatarka"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:src="@drawable/face"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="50dp"/>
 
 </LinearLayout>

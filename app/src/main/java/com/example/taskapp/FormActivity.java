@@ -9,8 +9,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.taskapp.models.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class FormActivity extends AppCompatActivity {
     private EditText editTitle;
@@ -55,7 +59,23 @@ public class FormActivity extends AppCompatActivity {
             task.setTitle(title);
             task.setId(0);
             App.getInstance().getDatabase().taskDao().insert(task);
-
+            String uid = FirebaseAuth.getInstance().getUid();
+            FirebaseFirestore.getInstance()
+                    .collection("tasks")
+                    .document(uid)
+                    .set(task)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(FormActivity.this, "Успешно",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(FormActivity.this, "Ошибка",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
         finish();
     }
