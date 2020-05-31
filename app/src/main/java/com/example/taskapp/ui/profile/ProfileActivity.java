@@ -32,14 +32,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     EditText editName;
     ImageView face;
-    private String avatarUrl;
     ProgressBar progressBar;
+    private String avatarUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,24 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void getData2() {
+        String uid = FirebaseAuth.getInstance().getUid();
+        FirebaseFirestore.getInstance()
+                .collection("users").document(uid)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot.exists()) {
+                            User user = documentSnapshot.toObject(User.class);
+                            editName.setText(user.getName());
+                            showImage(user.getAvatar());
+                        }
+                    }
+                });
+    }
+    private void showImage(String avatar) {
+        Glide.with(this).load(avatar).circleCrop().into(face);
+    }
 
     private void upload(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
@@ -116,8 +137,8 @@ public class ProfileActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Uri downloadUrl = task.getResult();
                             Log.e("Profile", "downloadUrl: " + downloadUrl);
-                            avatarUrl = downloadUrl.toString();
                             updateAvatarInfo(downloadUrl);
+                            avatarUrl = downloadUrl.toString();
                         } else {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(ProfileActivity.this, "Ошибка",
@@ -130,7 +151,8 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateAvatarInfo(Uri downloadUrl) {
         String uid = FirebaseAuth.getInstance().getUid();
         FirebaseFirestore.getInstance()
-                .collection("users").document(uid)
+                .collection("users")
+                .document(uid)
                 .update("avatar", downloadUrl.toString())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -147,25 +169,6 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
-    private void getData2() {
-        String uid = FirebaseAuth.getInstance().getUid();
-        FirebaseFirestore.getInstance()
-                .collection("users").document(uid)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        if (documentSnapshot.exists()) {
-                            User user = documentSnapshot.toObject(User.class);
-                            editName.setText(user.getName());
-                            showImage(user.getAvatar());
-                        }
-                    }
-                });
-    }
-
-    private void showImage(String avatar) {
-        Glide.with(this).load(avatar).circleCrop().into(face);
-    }
 
 
     @Override
