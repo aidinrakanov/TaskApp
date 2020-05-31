@@ -77,6 +77,27 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void save_profile(View view) {
+        String uid = FirebaseAuth.getInstance().getUid();
+        User user = new User("Aidin", 26, avatarUrl);
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(uid)
+                .set(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ProfileActivity.this, "Успешно",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ProfileActivity.this, "Ошибка",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
     private void upload(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
         String uid = FirebaseAuth.getInstance().getUid();
@@ -87,22 +108,23 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                 return reference.getDownloadUrl();
-            }})
-                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUrl = task.getResult();
-                    Log.e("Profile", "downloadUrl: " + downloadUrl);
-                    avatarUrl = downloadUrl.toString();
-                    updateAvatarInfo(downloadUrl);
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(ProfileActivity.this, "Ошибка",
-                            Toast.LENGTH_SHORT).show();
-                }
             }
-        });
+        })
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUrl = task.getResult();
+                            Log.e("Profile", "downloadUrl: " + downloadUrl);
+                            avatarUrl = downloadUrl.toString();
+                            updateAvatarInfo(downloadUrl);
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ProfileActivity.this, "Ошибка",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void updateAvatarInfo(Uri downloadUrl) {
@@ -145,27 +167,6 @@ public class ProfileActivity extends AppCompatActivity {
         Glide.with(this).load(avatar).circleCrop().into(face);
     }
 
-    public void save_profile(View view) {
-        String uid = FirebaseAuth.getInstance().getUid();
-        String name = editName.getText().toString().trim();
-        User user = new User("Aidin", 26, avatarUrl);
-        FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(uid)
-                .set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(ProfileActivity.this, "Успешно",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(ProfileActivity.this, "Ошибка",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.taskapp.models.Task;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class FormActivity extends AppCompatActivity {
@@ -62,11 +63,10 @@ public class FormActivity extends AppCompatActivity {
             String uid = FirebaseAuth.getInstance().getUid();
             FirebaseFirestore.getInstance()
                     .collection("tasks")
-                    .document(uid)
-                    .set(task)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    .add(task)
+                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
-                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(FormActivity.this, "Успешно",
                                         Toast.LENGTH_SHORT).show();
