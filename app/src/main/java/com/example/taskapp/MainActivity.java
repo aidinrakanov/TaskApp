@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.taskapp.login.PhoneActivity;
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.OnItemClickListener;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Task task;
+    ImageView imageView;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(int_profile);
             }
         });
+//        navigationView.getHeaderView(0).findViewById(R.id.imageView);
+//        Glide.with(this).load(avatar).circleCrop().into(imageView);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
@@ -101,12 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-//        fragment.getChildFragmentManager().getFragments().get(0).onActivityResult(requestCode,resultCode,data);
-//        }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
