@@ -8,10 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.taskapp.login.PhoneActivity;
 import com.example.taskapp.models.Task;
+import com.example.taskapp.models.User;
 import com.example.taskapp.ui.OnItemClickListener;
 import com.example.taskapp.ui.home.HomeFragment;
 import com.example.taskapp.ui.home.TaskAdapter;
@@ -21,6 +23,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +44,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Task task;
-    ImageView imageView;
+    ImageView avatar;
+    TextView name;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -76,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(int_profile);
             }
         });
-//        navigationView.getHeaderView(0).findViewById(R.id.imageView);
-//        Glide.with(this).load(avatar).circleCrop().into(imageView);
+        avatar = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        name = navigationView.getHeaderView(0).findViewById(R.id.textView);
+        loadImage();
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
@@ -85,6 +93,27 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    private void loadImage() {
+        FirebaseFirestore.getInstance().collection("users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot.exists()){
+                            User user = documentSnapshot.toObject(User.class);
+                            if (user.getAvatar() != null && user.getName() != null) {
+                                name.setText(user.getName());
+                                showAvatar(user.getAvatar());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void showAvatar(String avatar) {
+        Glide.with(this).load(avatar).circleCrop().into(this.avatar);
     }
 
     private boolean isShown() {

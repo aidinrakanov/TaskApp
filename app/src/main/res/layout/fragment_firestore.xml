@@ -7,12 +7,9 @@
     android:background="@drawable/phone_gradient"
     tools:context=".ui.Firestore.FirestoreFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="firestore_fragment"
-        android:layout_gravity="center"
-        android:layout_marginTop="300dp"
-        android:textSize="30sp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_firestore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
