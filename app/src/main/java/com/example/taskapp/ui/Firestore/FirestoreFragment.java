@@ -19,18 +19,21 @@ import com.example.taskapp.models.Task;
 import com.example.taskapp.models.User;
 
 import com.example.taskapp.ui.home.HomeFragment;
+import com.example.taskapp.ui.home.TaskAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class FirestoreFragment extends Fragment {
     TextView title, descr;
-    private FirestoreAdapter adapter;
+    private TaskAdapter adapter;
     private ArrayList<Task> list = new ArrayList<>();
 
 
@@ -47,12 +50,19 @@ public class FirestoreFragment extends Fragment {
         descr = view.findViewById(R.id.FS_text_description);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_firestore);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new FirestoreAdapter(list);
+        adapter = new TaskAdapter(list);
         recyclerView.setAdapter(adapter);
         loadTasks();
     }
 
     private void loadTasks() {
-
+        FirebaseFirestore.getInstance().collection("tasks").get()
+        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot snapshots) {
+                list.addAll(snapshots.toObjects(Task.class));
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }
